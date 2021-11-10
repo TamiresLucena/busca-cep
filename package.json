@@ -1,0 +1,43 @@
+{
+  "name": "busca-cep",
+  "version": "1.0.0",
+  "description": "API para consulta de endereço baseado em um CEP.",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "start": "node ./src/app.js",
+    "db:migration:create": "./node_modules/.bin/knex migrate:make --knexfile ./src/database/knexfile.js",
+    "db:migrate": "./node_modules/.bin/knex migrate:latest --knexfile ./src/database/knexfile.js",
+    "db:migrate:undo": "./node_modules/.bin/knex migrate:down --knexfile ./src/database/knexfile.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TamiresLucena/busca-cep.git"
+  },
+  "author": "Tamires Lucena",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TamiresLucena/busca-cep/issues"
+  },
+  "homepage": "https://github.com/TamiresLucena/busca-cep#readme",
+  "devDependencies": {
+    "commitizen": "^4.2.4",
+    "cz-conventional-changelog": "^3.2.0",
+    "dotenv": "^10.0.0",
+    "eslint": "^7.32.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.1.1"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "knex": "^0.95.14",
+    "pg": "^8.7.1"
+  }
+}
