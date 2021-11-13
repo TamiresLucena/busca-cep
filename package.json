@@ -7,7 +7,7 @@
     "test": "test",
     "start": "node ./src/app.js",
     "db:migration:create": "./node_modules/.bin/knex migrate:make --knexfile ./src/database/knexfile.js",
-    "db:migrate": "./node_modules/.bin/knex migrate:latest --knexfile ./src/database/knexfile.js",
+    "db:migrate": "node ./src/database/migrate",
     "db:migrate:undo": "./node_modules/.bin/knex migrate:down --knexfile ./src/database/knexfile.js",
     "swagger": "node src/swagger.js"
   },
@@ -38,6 +38,7 @@
   },
   "dependencies": {
     "express": "^4.17.1",
+    "express-validator": "^6.13.0",
     "knex": "^0.95.14",
     "pg": "^8.7.1",
     "swagger": "^0.7.5",
