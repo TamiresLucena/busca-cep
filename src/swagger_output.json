@@ -1,13 +1,26 @@
 {
   "swagger": "2.0",
   "info": {
-    "version": "2.0.0",
+    "version": "1.0.0",
     "title": "Swagger Busca CEP",
-    "description": "API para endereço completo a partir de um CEP."
+    "description": "API para obter endereço completo a partir de um CEP."
   },
   "host": "localhost:3000",
   "basePath": "/",
-  "tags": [],
+  "tags": [
+    {
+      "name": "Saúde",
+      "description": "Endpoints relacionados a saúde da aplicação;"
+    },
+    {
+      "name": "Endereços",
+      "description": "Endpoints relacionados a endereços;"
+    },
+    {
+      "name": "Usuários",
+      "description": "Endpoints relacionados a usuários;"
+    }
+  ],
   "schemes": [
     "http",
     "https"
@@ -21,16 +34,122 @@
   "paths": {
     "/health": {
       "get": {
-        "tags": [],
-        "description": "",
+        "tags": [
+          "Saúde"
+        ],
+        "description": "Endpoint para saúde da aplicação",
         "parameters": [],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Servidor ativo!",
+            "schema": {
+              "$ref": "#/definitions/Saude"
+            }
+          },
+          "400": {
+            "description": "Desculpe, tivemos um problema com a requisição!"
+          },
+          "404": {
+            "description": "Não encontrado."
+          }
+        }
+      }
+    },
+    "/api/addresses/": {
+      "get": {
+        "tags": [
+          "Endereços"
+        ],
+        "description": "Endpoint para buscar endereço a partir de um CEP",
+        "parameters": [
+          {
+            "name": "zip_code",
+            "in": "query",
+            "description": "Informações do produto",
+            "required": true,
+            "type": "object",
+            "schema": {
+              "$ref": "#/definitions/Enderecos"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "CEP Inválido"
+          },
+          "401": {
+            "description": "Não autorizado"
+          },
+          "404": {
+            "description": "Não encontrado"
           }
         }
       }
     }
   },
-  "definitions": {}
+  "definitions": {
+    "Saude": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string",
+          "example": "Servidor ativo!"
+        },
+        "date": {
+          "type": "string",
+          "example": "2021-11-11T01:21:33.983Z"
+        },
+        "uptime": {
+          "type": "number",
+          "example": 0.0592191
+        }
+      }
+    },
+    "Enderecos": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number",
+          "example": 1
+        },
+        "zip_code": {
+          "type": "string",
+          "example": "12232883"
+        },
+        "location": {
+          "type": "string",
+          "example": "Gentil Raymundo da Silva"
+        },
+        "district": {
+          "type": "string",
+          "example": "Dom Pedro II"
+        },
+        "city": {
+          "type": "string",
+          "example": "São José dos Campos"
+        },
+        "state": {
+          "type": "string",
+          "example": "São Paulo"
+        }
+      }
+    },
+    "Usuarios": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number",
+          "example": 1
+        },
+        "name": {
+          "type": "string",
+          "example": "Tamires Lucena"
+        },
+        "login": {
+          "type": "string",
+          "example": "tlucena"
+        }
+      }
+    }
+  }
 }
