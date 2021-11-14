@@ -4,8 +4,8 @@
   "description": "API para consulta de endereço baseado em um CEP.",
   "main": "index.js",
   "scripts": {
-    "test": "test",
-    "start": "node ./src/app.js",
+    "test": "jest",
+    "start": "node ./src/server.js",
     "db:migration:create": "./node_modules/.bin/knex migrate:make --knexfile ./src/database/knexfile.js",
     "db:migrate": "node ./src/database/migrate",
     "db:migrate:undo": "./node_modules/.bin/knex migrate:down --knexfile ./src/database/knexfile.js",
@@ -30,7 +30,8 @@
     "eslint-plugin-import": "^2.25.2",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.1.1",
-    "jest": "^27.3.1"
+    "jest": "^27.3.1",
+    "supertest": "^6.1.6"
   },
   "config": {
     "commitizen": {
@@ -39,6 +40,7 @@
   },
   "dependencies": {
     "express": "^4.17.1",
+    "express-cache-controller": "^1.1.0",
     "express-validator": "^6.13.0",
     "knex": "^0.95.14",
     "lodash": "^4.17.21",
