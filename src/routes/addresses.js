@@ -1,11 +1,15 @@
 const express = require('express')
 const router = express.Router()
 
-const { addressValidation } = require('./middlewares')
+const { addressValidation, cacheControl } = require('./middlewares')
 const { getAddress } = require('../controllers/addresses')
 
 module.exports = router.get(
   '/',
+  addressValidation,
+  cacheControl({ maxAge: 60000 }),
+  getAddress
+
   /*
       #swagger.tags = ['Endereços']
       #swagger.description = 'Endpoint para buscar endereço a partir de um CEP'
@@ -29,7 +33,4 @@ module.exports = router.get(
           description: 'Não encontrado'
       }
     */
-
-  addressValidation,
-  getAddress
 )
