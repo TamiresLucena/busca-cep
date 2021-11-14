@@ -1,5 +1,9 @@
 const db = require('../../database')
 const { setCharAt } = require('./utils')
+const { set } = require('../../services/keyv')
+const Keyv = require('keyv')
+
+const keyv = new Keyv('redis://localhost:6379')
 
 function getAddressByZipCode (zipCode) {
   return db
@@ -10,6 +14,9 @@ function getAddressByZipCode (zipCode) {
 }
 
 module.exports = async ({ zipCode }) => {
+  console.log(await keyv.set('teste', 'oi'))
+  console.log('teste', await keyv.get('teste'))
+
   let currentZipCode = zipCode
 
   let size = zipCode.length - 1
