@@ -10,3 +10,9 @@ services:
     ports:
       - 5432:5432
     restart: on-failure
+
+  redis:
+    image: "redis:5-buster"
+    container_name: redis
+    ports:
+      - "6379:6379"
