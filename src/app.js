@@ -32,6 +32,9 @@ app.get('/health', (req, res) => {
   res.status(200).json(data)
 })
 
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+
 app.use('/api', routes)
 
 module.exports = app
