@@ -1,9 +1,6 @@
 const db = require('../../database')
 const { setCharAt } = require('./utils')
-const { set } = require('../../services/keyv')
-const Keyv = require('keyv')
-
-const keyv = new Keyv('redis://localhost:6379')
+const redis = require('../../services/redis')
 
 function getAddressByZipCode (zipCode) {
   return db
@@ -14,15 +11,19 @@ function getAddressByZipCode (zipCode) {
 }
 
 module.exports = async ({ zipCode }) => {
-  console.log(await keyv.set('teste', 'oi'))
-  console.log('teste', await keyv.get('teste'))
+  const addressCacheKey = `address:${zipCode}`
+  const addressCache = await redis.get(addressCacheKey)
+  if (addressCache) return { address: addressCache }
 
   let currentZipCode = zipCode
 
   let size = zipCode.length - 1
   while (size >= 0) {
     const address = await getAddressByZipCode(currentZipCode)
-    if (address) return address
+    if (address) {
+      await redis.set(addressCacheKey, address)
+      return { address }
+    }
     currentZipCode = setCharAt(currentZipCode, size--, '0')
   }
   const error = new Error('CEP não encontrado')
