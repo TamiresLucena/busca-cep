@@ -13,18 +13,26 @@
       "description": "Endpoints relacionados a saúde da aplicação;"
     },
     {
-      "name": "Endereços",
-      "description": "Endpoints relacionados a endereços;"
+      "name": "Autenticação",
+      "description": "Endpoints relacionado a autenticação do usuário;"
     },
     {
-      "name": "Usuários",
-      "description": "Endpoints relacionados a usuários;"
+      "name": "Endereços",
+      "description": "Endpoints relacionados a endereços;"
     }
   ],
   "schemes": [
     "http",
     "https"
   ],
+  "securityDefinitions": {
+    "apiKeyAuth": {
+      "type": "apiKey",
+      "in": "header",
+      "name": "authorization",
+      "description": "Insira seu token para garantir acesso aos endpoints"
+    }
+  },
   "consumes": [
     "application/json"
   ],
@@ -32,12 +40,12 @@
     "application/json"
   ],
   "paths": {
-    "/health": {
+    "/health/health": {
       "get": {
         "tags": [
           "Saúde"
         ],
-        "description": "Endpoint para saúde da aplicação",
+        "summary": "Saúde da aplicação",
         "parameters": [],
         "responses": {
           "200": {
@@ -47,35 +55,77 @@
             }
           },
           "400": {
-            "description": "Desculpe, tivemos um problema com a requisição!"
+            "description": "Desculpe, tivemos um problema com a requisição"
+          },
+          "401": {
+            "description": "Não autorizado"
           },
           "404": {
-            "description": "Não encontrado."
+            "description": "Não encontrado"
           }
         }
       }
     },
-    "/api/addresses/": {
-      "get": {
+    "/authentication/authenticate": {
+      "post": {
         "tags": [
-          "Endereços"
+          "Autenticação"
         ],
-        "description": "Endpoint para buscar endereço a partir de um CEP",
+        "summary": "Autenticação do usuário",
         "parameters": [
           {
-            "name": "zip_code",
-            "in": "query",
-            "description": "Informações do produto",
+            "in": "body",
+            "name": "body",
+            "description": "Login e senha do usuário",
             "required": true,
-            "type": "object",
             "schema": {
-              "$ref": "#/definitions/Enderecos"
+              "$ref": "#/definitions/AutenticacaoBody"
             }
           }
         ],
         "responses": {
+          "200": {
+            "description": "Usuário autorizado",
+            "schema": {
+              "$ref": "#/definitions/Autenticacao"
+            }
+          },
           "400": {
-            "description": "CEP Inválido"
+            "description": "Desculpe, tivemos um problema com a requisição"
+          },
+          "401": {
+            "description": "Não autorizado"
+          },
+          "404": {
+            "description": "Não encontrado"
+          }
+        }
+      }
+    },
+    "/addresses/address": {
+      "get": {
+        "tags": [
+          "Endereços"
+        ],
+        "summary": "Busca CEP",
+        "parameters": [
+          {
+            "in": "query",
+            "type": "string",
+            "name": "zip_code",
+            "description": "Cep que deseja buscar o endereço",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Endereço encontrado",
+            "schema": {
+              "$ref": "#/definitions/Enderecos"
+            }
+          },
+          "400": {
+            "description": "Desculpe, tivemos um problema com a requisição"
           },
           "401": {
             "description": "Não autorizado"
@@ -101,7 +151,7 @@
         },
         "uptime": {
           "type": "number",
-          "example": 0.0592191
+          "example": 0.05644
         }
       }
     },
@@ -134,20 +184,25 @@
         }
       }
     },
-    "Usuarios": {
+    "Autenticacao": {
       "type": "object",
       "properties": {
-        "id": {
-          "type": "number",
-          "example": 1
-        },
-        "name": {
+        "token": {
           "type": "string",
-          "example": "Tamires Lucena"
-        },
+          "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...0B6_xZmjGCgu54s"
+        }
+      }
+    },
+    "AutenticacaoBody": {
+      "type": "object",
+      "properties": {
         "login": {
           "type": "string",
           "example": "tlucena"
+        },
+        "password": {
+          "type": "string",
+          "example": "Lu1z@"
         }
       }
     }

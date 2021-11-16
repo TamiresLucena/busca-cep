@@ -7,9 +7,10 @@
     "test": "jest",
     "start": "node ./src/server.js",
     "db:migration:create": "./node_modules/.bin/knex migrate:make --knexfile ./src/database/knexfile.js",
-    "db:migrate": "node ./src/database/migrate",
+    "db:migratelocal": "node ./src/database/migrate",
+    "db:migrate": "./node_modules/.bin/knex migrate:latest --knexfile ./src/database/knexfile.js",
     "db:migrate:undo": "./node_modules/.bin/knex migrate:down --knexfile ./src/database/knexfile.js",
-    "swagger": "node src/swagger.js"
+    "inserts": "node ./src/scripts/loadDatabaseData.js"
   },
   "repository": {
     "type": "git",
@@ -31,6 +32,7 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.1.1",
     "jest": "^27.3.1",
+    "redis-mock": "^0.56.3",
     "supertest": "^6.1.6"
   },
   "config": {
@@ -50,7 +52,6 @@
     "lodash": "^4.17.21",
     "pg": "^8.7.1",
     "swagger": "^0.7.5",
-    "swagger-autogen": "^2.12.6",
     "swagger-ui-express": "^4.1.6"
   }
 }
