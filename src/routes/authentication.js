@@ -6,5 +6,4 @@ const { authenticate } = require('../controllers/authentication')
 module.exports = router
   .post('/authenticate',
     authenticate
-
   )
