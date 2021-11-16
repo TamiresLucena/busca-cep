@@ -10,6 +10,6 @@ RUN npm install
 
 COPY . /usr/app/
 
-CMD [ "npm", "start" ]
+EXPOSE 3333
 
-EXPOSE 8081
+CMD [ "npm", "start" ]
