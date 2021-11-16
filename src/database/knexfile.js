@@ -1,10 +1,9 @@
 /* eslint-disable node/no-path-concat */
-require('dotenv').config()
 
 module.exports = {
   client: 'pg',
   connection: {
-    host: process.env.DB_HOST,
+    host: 'postgres',
     port: process.env.DB_PORT,
     database: process.env.DB_NAME,
     user: process.env.DB_USER,
