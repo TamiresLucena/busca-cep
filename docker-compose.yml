@@ -1,39 +1,40 @@
 version: "3.8"
 services:
-  busca-cep:
+  busca-cep-api:
     image: node:latest
-    container_name: busca-cep
+    container_name: busca-cep-api
     ports:
       - 3333:3333
     build:
       context: .
       dockerfile: Dockerfile
     depends_on:
-      - postgres
+      - busca-cep-db
       - redis
     links:
-      - postgres
+      - busca-cep-db
       - redis
     environment:
       PORT: 3333
-      DB_HOST: host.docker.internal
+      DB_HOST: busca-cep-db
+      DB_NAME: busca-cep-db
       DB_USER: postgres
       DB_PASSWORD: postgres
       REDIS_CONNECTION_STRING: redis://redis
       JWT_PASSWORD: as8dcw9qfh9oq834w
+      ENV: DEV
     volumes:
       - ./:/usr/app/
     command: sh -c "npm run db:migrate && npm run inserts && npm start"
 
-  postgres:
+  busca-cep-db:
     image: postgres:latest
-    container_name: postgres
-    environment:
-      # POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: busca_cep
+    container_name: busca-cep-db
     ports:
       - 5432:5432
+    environment:
+      POSTGRES_DB: busca-cep-db
+      POSTGRES_PASSWORD: postgres
 
   redis:
     image: "redis:5-buster"
