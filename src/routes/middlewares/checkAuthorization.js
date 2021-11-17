@@ -7,7 +7,7 @@ module.exports = (req, res, next) => {
     const error = new Error()
     error.status = 401
     error.message = 'Token não fornecido'
-    throw error
+    return next(error)
   }
 
   try {
@@ -17,6 +17,6 @@ module.exports = (req, res, next) => {
 
     next()
   } catch (err) {
-    throw new Error('Token inválido')
+    next(err)
   }
 }
