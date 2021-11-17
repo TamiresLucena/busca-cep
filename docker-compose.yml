@@ -25,6 +25,7 @@ services:
       ENV: DEV
     volumes:
       - ./:/usr/app/
+    restart: on-failure
     command: sh -c "npm run db:migrate && npm run inserts && npm start"
 
   busca-cep-db:
