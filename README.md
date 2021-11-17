@@ -14,34 +14,26 @@
   <summary>Tabela de conteúdos</summary>
   <ol>
     <li>
-      <a href="#sobre-o-projeto">Sobre o Desafio</a>
+      <a href="#sobre-o-desafio">Sobre o Desafio</a>
       <ul>
-        <li><a href="#tecnologias-utilizadas">Tecnologias utilizadas</a></li>
+        <li><a href="#tecnologias-e-recursos">Tecnologias e Recursos</a></li>
       </ul>
-    </li>
-    <ul>
-        <li><a href="#regras-de-negócio">Regras de negócio</a></li>
+      <ul>
+        <li><a href="#regras-de-negocio">Regras de Negócio</a></li>
       </ul>
     </li>
     <li>
-      <a href="#instruções-gerais">Instruções gerais</a>
+      <a href="#instrucoes-gerais">Instruções Gerais</a>
       <ul>
-        <li><a href="#configurando">Configuração</a></li>
+        <li><a href="#configuracoes-e-instalacoes">Configurações e Instalações</a></li>
       </ul>
     </li>
-    <ul>
-        <li><a href="#instalação">Instalação</a></li>
-      </ul>
-    </li>
-    <li><a href="#utilizando-a-api">Utilizando a API</a></li>
+    <li>
+      <a href="#utilizando-a-api">Utilizando a API</a></li>
       <ul>
-        <li><a href="#endpoints">Endpoints</a></li>
-      </ul>
-        <ul>
         <li><a href="#swagger">Swagger</a></li>
       </ul>
     </li>
-    </li> 
   </ol>
 </details>
 
@@ -49,7 +41,7 @@
 
 ## :notebook_with_decorative_cover: Sobre o Desafio
 
-### Tecnologias Utilizadas
+### Tecnologias e Recursos
 
 O projeto foi criado usando as tecnologias:
 
@@ -74,6 +66,12 @@ Uso de caches visando velocidade, otimização, melhora de experiência do usuá
 - [Jest]
 Para realização de testes;
 
+- [Logs]
+A API registra ações relacionadas aos endpoints da aplicação em uma tabela específica no banco chamada <i>logs</i>. Os dados informam data e usuário que executou determinadas rota;
+
+- [Segurança]
+A aplicação conta com a criptogafia de senhas, garantindo confidencialidade dos dados dos usuários;
+
 ### Regras de Negócio
 
 - Dado um CEP válido, deve retornar o endereço correspondente;
@@ -88,65 +86,51 @@ A seguir estão as instruções para a instalação, configuração e uso da API
 
 ### Configurações e Instalações
 
-## Docker
-
 1. Clone o repositório
 
 ```sh
-   git clone https://github.com/TamiresLucena/busca-cep.git
+  git clone https://github.com/TamiresLucena/busca-cep.git
 ```
 
 2. Subir a aplicação no Docker
 
 ```sh
-    docker-compose build
+  docker-compose up -d
 ```
+
+3. Rodar testes
 
 ```sh
-    docker-compose up -d
+  docker-compose exec busca-cep-api npm run test
 ```
 
-## Local
-
-1. Clone o repositório
-
-```sh
-   git clone https://github.com/TamiresLucena/busca-cep.git
-```
-
-2. Instalar dependências
-
-```sh
-   npm install
-```
-
-3. Executar a API localmente
-
-```sh
-    npm start
-```
-
-5. Executar os testes localmente
-
-```sh
-    npm test
-```
 
 <!-- USAGE EXAMPLES -->
 
 ## :electric_plug: Utilizando a API
 
-### Acesso local a documentação <i>Swagger</i>
+### Swagger
 
-No navegador, digitar <a href="localhost:3000/docs">localhost:3000/docs</a>. 
+1. Acesse: <a href="localhost:3333/docs">localhost:3333/docs</a>;
 
-### Endpoints
+2. Execute o post de autenticação para gerar o token a ser utilizado nas demais requisições;
 
-O usuário tem acesso aos seguintes endpoints:
+3. Insira o token retornado da requisição anterior no campo 'Authorize' identificado com um cadeada no canto superior direito, da seguinte maneira: `  Bearer <token> `
 
-- Autenticação
-- Saúde
-- Endereços
+4. Realizada a autenticação, os endpoints estarão todos liberados;
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
